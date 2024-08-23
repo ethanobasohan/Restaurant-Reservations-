@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Reservations</title>
+    <script>
+        async function displayReservations() {
+            const response = await fetch('/api/reservations');
+            const reservationData = await response.json();
+            const displayDiv = document.getElementById('display');
+            displayDiv.innerHTML = ''; // Clear previous content
+
+            reservationData.forEach((reservation, index) => {
+                const reservationInfo = document.createElement('p');
+                reservationInfo.textContent = `Customer: ${reservation.customerName}, Time: ${reservation.reservationTime}`;
+                displayDiv.appendChild(reservationInfo);
+            });
+        }
+
+        window.onload = displayReservations; // Display reservations on page load
+    </script>
+</head>
+<body>
+    <h1>Current Reservations</h1>
+    <div id="display"></div>
+    <br>
+    <a href="make_reservations.html">Make a New Reservation</a>
+</body>
+</html>
